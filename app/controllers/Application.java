@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.ResourceBundle;
 
 import org.apache.http.impl.cookie.DateUtils;
 
@@ -12,9 +13,12 @@ import views.html.index;
 
 public class Application extends Controller
 {
+	private static final ResourceBundle PROPS = ResourceBundle
+			.getBundle("facebook");
+
 	public static Result index()
 	{
-		return ok(index.render("Your new application is ready."));
+		return ok(index.render(PROPS.getString("appId")));
 	}
 
 	/**

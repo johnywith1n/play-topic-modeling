@@ -23,10 +23,10 @@ class $.FacebookLogin
 			else
 				FacebookLogin.login(onLoggedIn)
 	
-	@init: ->
+	@init: (myAppId) ->
 		window.fbAsyncInit = ->
 			FB.init
-				appId: "476999072351137" # App ID
+				appId: myAppId # App ID
 				channelUrl: "//localhost:9000/channel" # Channel File
 				status: true # check login status
 				cookie: true # enable cookies to allow the server to access the session
@@ -34,8 +34,8 @@ class $.FacebookLogin
 			
 			FacebookLogin.getLoginStatus(FacebookLogin.testAPI)
 
-	@load_async: (d) ->
-		FacebookLogin.init()
+	@load_async: (d, appId) ->
+		FacebookLogin.init(appId)
 		js = undefined
 		id = "facebook.jssdk"
 		ref = d.getElementsByTagName("script")[0]
