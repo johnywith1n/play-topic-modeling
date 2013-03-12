@@ -1,28 +1,49 @@
 class $.FacebookLogin
 	constructor: ->
 	
-	@login: (onLoggedIn)->
+	@login: (onSuccess, onFailure)->
 		FB.login (response) ->
 			if response.authResponse
-				onLoggedIn()
+				onSuccess()
 			else
 				alert "login failed. please try again"
+				onFailure()
 	
 	@testAPI: ->
 		console.log "Welcome!  Fetching your information.... "
 		FB.api "/me", (response) ->
 			console.log "Good to see you, " + response.name + "."
 		
-	@getLoginStatus: (onLoggedIn)->
+	@getLoginStatus: (onSuccess, onFailure)->
+		FacebookLogin.withLoginStatus(onSuccess, () -> FacebookLogin.login(onSuccess, onFailure))
+		
+	@getLoginNavBarText: () ->
+		FacebookLogin.withLoginStatus () ->
+			FB.api "/me", (response) ->
+				$("#nav-bar-login").text "Hello " + response.name
+		, () ->
+			$("#nav-bar-login").text "Login"
+	
+	@withLoginStatus: (onSuccess, onFailure) ->
 		FB.getLoginStatus (response) ->
 			if response.status is "connected"
-				#connected
-				onLoggedIn()
+				onSuccess()
 			else if response.status is "not_authorized"
-				FacebookLogin.login(onLoggedIn)
+				onFailure()
 			else
-				FacebookLogin.login(onLoggedIn)
+				onFailure()
 	
+	@doLogin: () ->
+		FacebookLogin.getLoginStatus () -> 
+				FB.api "/me", (response) ->
+					$("#nav-bar-login")
+						.text("Hello " + response.name)
+						.click ->
+			, () ->
+				$("#nav-bar-login")
+					.text("Login")
+					.click () -> FacebookLogin.doLogin()
+				
 	@init: (myAppId) ->
 		window.fbAsyncInit = ->
 			FB.init
@@ -32,7 +53,7 @@ class $.FacebookLogin
 				cookie: true # enable cookies to allow the server to access the session
 				xfbml: true # parse XFBML
 			
-			FacebookLogin.getLoginStatus(FacebookLogin.testAPI)
+			FacebookLogin.doLogin()
 
 	@load_async: (d, appId) ->
 		FacebookLogin.init(appId)
