@@ -1,4 +1,4 @@
-@(title: String)(content: Html)
+@(title: String, script: Html = Html(""))(content: Html)
 
 <!DOCTYPE html>
 
@@ -31,7 +31,7 @@
 							<li><a href="#">Contact</a></li>  
 						</ul> 
 						<ul class="nav pull-right"> 
-							<li><a href="#">Login Section</a></li>
+							<li><a href="#" id="nav-bar-login"></a></li>
 						</ul>
 					</div>
 				</div>
@@ -40,5 +40,7 @@
 		
 		@content
 		
+		
+		@script
 	</body>
 </html>

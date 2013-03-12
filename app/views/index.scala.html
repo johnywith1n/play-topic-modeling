@@ -1,9 +1,12 @@
 @(appId: String)
 
-@main("Welcome to Play 2.1") {
-	<div id="fb-root"></div>
+@scripts = {
 	<script src="@routes.Assets.at("javascripts/facebooklogin.js")"></script>
 	<script>
 		$.FacebookLogin.load_async(document, @appId);
 	</script>
+}
+
+@main("Facebook Topic Modeling", scripts) {
+	<div id="fb-root"></div>
 }
