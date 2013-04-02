@@ -20,6 +20,7 @@ public class Application extends Controller
 	{
 		return ok(index.render(PROPS.getString("appId")));
 	}
+	
 
 	/**
 	 * Controller for the Facebook channel page used with the javascript SDK

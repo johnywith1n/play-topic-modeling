@@ -28,6 +28,7 @@ class $.FacebookLogin
 		FB.getLoginStatus (response) ->
 			if response.status is "connected"
 				onSuccess()
+				console.log response
 			else if response.status is "not_authorized"
 				onFailure()
 			else
