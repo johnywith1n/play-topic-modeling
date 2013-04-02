@@ -5,7 +5,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.cookie.DateUtils;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -13,7 +12,6 @@ import org.codehaus.jackson.map.JsonMappingException;
 import play.mvc.Controller;
 import play.mvc.Result;
 import util.FacebookUtils;
-import util.HttpClientUtil;
 import views.html.channel;
 import views.html.index;
 
@@ -30,8 +28,7 @@ public class Application extends Controller
 	public static Result test(String cookie) throws JsonParseException,
 			JsonMappingException, IOException
 	{
-		return ok(HttpClientUtil.getResponseAsString(new DefaultHttpClient(),
-				FacebookUtils.getAccessTokenUrl(cookie)));
+		return ok(FacebookUtils.getAccessToken (cookie));
 	}
 
 	/**
