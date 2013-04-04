@@ -14,6 +14,9 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import play.libs.WS;
+import play.libs.WS.WSRequestHolder;
+
 public class FacebookUtils
 {
 	private static final ObjectMapper mapper = new ObjectMapper ();
@@ -41,6 +44,26 @@ public class FacebookUtils
 		return "https://graph.facebook.com/oauth/access_token?" + "client_id="
 				+ appId + "&redirect_uri=" + "" + "&client_secret=" + appSecret
 				+ "&code=" + jsonMap.get ("code");
+	}
+
+	public static WSRequestHolder getAccessTokenUrlRequest (String cookie)
+			throws JsonParseException, JsonMappingException, IOException
+	{
+		String cookieValue = cookie.replace ("fbsr_" + appId + "=", "");
+		String[] parts = cookieValue.split ("\\.");
+		String json = StringUtils.newStringUtf8 (Base64.decodeBase64 (parts[1]
+				.getBytes ()));
+		@SuppressWarnings("unchecked")
+		Map<String, Object> jsonMap = mapper.readValue (json, Map.class);
+		/*
+		 * redirect uri is blank because of
+		 * http://stackoverflow.com/a/7512586/839710
+		 */
+		return WS.url ("https://graph.facebook.com/oauth/access_token")
+				.setQueryParameter ("client_id", appId)
+				.setQueryParameter ("redirect_uri", "")
+				.setQueryParameter ("client_secret", appSecret)
+				.setQueryParameter ("code", jsonMap.get ("code").toString ());
 	}
 
 	public static String getAccessToken (String cookie)
