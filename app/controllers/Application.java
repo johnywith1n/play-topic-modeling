@@ -18,17 +18,17 @@ import views.html.index;
 public class Application extends Controller
 {
 	private static final ResourceBundle PROPS = ResourceBundle
-			.getBundle("facebook");
+			.getBundle ("facebook");
 
-	public static Result index()
+	public static Result index ()
 	{
-		return ok(index.render(PROPS.getString("appId")));
+		return ok (index.render (PROPS.getString ("appId")));
 	}
 
-	public static Result test(String cookie) throws JsonParseException,
+	public static Result test (String cookie) throws JsonParseException,
 			JsonMappingException, IOException
 	{
-		return ok(FacebookUtils.getAccessToken (cookie));
+		return ok (FacebookUtils.getAccessToken (cookie));
 	}
 
 	/**
@@ -36,17 +36,17 @@ public class Application extends Controller
 	 * 
 	 * @return
 	 */
-	public static Result channel()
+	public static Result channel ()
 	{
-		response().setHeader(CACHE_CONTROL, "max-age=31536000");
-		response().setHeader(EXPIRES, getNextYearAsString());
-		return ok(channel.render());
+		response ().setHeader (CACHE_CONTROL, "max-age=31536000");
+		response ().setHeader (EXPIRES, getNextYearAsString ());
+		return ok (channel.render ());
 	}
 
-	private static String getNextYearAsString()
+	private static String getNextYearAsString ()
 	{
-		Calendar calendar = new GregorianCalendar();
-		calendar.add(Calendar.YEAR, 1);
-		return DateUtils.formatDate(calendar.getTime());
+		Calendar calendar = new GregorianCalendar ();
+		calendar.add (Calendar.YEAR, 1);
+		return DateUtils.formatDate (calendar.getTime ());
 	}
 }
