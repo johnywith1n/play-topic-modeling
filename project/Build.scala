@@ -17,7 +17,8 @@ object ApplicationBuild extends Build {
     "org.bluestemsoftware.open.maven.tparty" % "xerces-impl" % "2.9.0",
     "org.webjars" % "webjars-play" % "2.1.0",
     "org.webjars" % "bootstrap" % "2.3.0",
-    "commons-codec" % "commons-codec" % "1.7"
+    "commons-codec" % "commons-codec" % "1.7",
+    "com.google.guava" % "guava" % "13.0.1"
     
   )
 
