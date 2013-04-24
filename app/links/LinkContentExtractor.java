@@ -1,6 +1,5 @@
 package links;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import util.HttpClientUtil;
+
+import com.google.common.collect.ImmutableMap;
+
 import de.l3s.boilerpipe.BoilerpipeProcessingException;
 import de.l3s.boilerpipe.extractors.ArticleExtractor;
 
@@ -20,7 +22,7 @@ public class LinkContentExtractor
 	public Map<String, String> extractArticles (HttpClient client,
 			List<Links> linksList)
 	{
-		Map<String, String> articleMap = new HashMap<String, String> ();
+		ImmutableMap.Builder<String, String> articleMap = ImmutableMap.builder ();
 
 		int i = 0;
 		for (Links links : linksList)
@@ -33,7 +35,7 @@ public class LinkContentExtractor
 			}
 		}
 
-		return articleMap;
+		return articleMap.build ();
 	}
 
 	public String extractArticle (HttpClient client, String url)

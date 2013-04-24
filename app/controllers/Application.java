@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import links.LinkContentExtractor;
 import links.Links;
 import links.LinksRetriever;
+import nlp.StopListFilterFactory;
 
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.cookie.DateUtils;
@@ -29,6 +30,8 @@ public class Application extends Controller
 
 	public static Result index ()
 	{
+		System.out.println (StopListFilterFactory.getFilter ());
+
 		return ok (index.render (PROPS.getString ("appId")));
 	}
 

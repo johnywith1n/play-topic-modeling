@@ -19,7 +19,8 @@ object ApplicationBuild extends Build {
     "org.webjars" % "webjars-play" % "2.1.0",
     "org.webjars" % "bootstrap" % "2.3.0",
     "commons-codec" % "commons-codec" % "1.7",
-    "com.google.guava" % "guava" % "13.0.1"
+    "com.google.guava" % "guava" % "13.0.1",
+    "edu.stanford.nlp" % "stanford-corenlp" % "1.3.4"
     
   )
 
