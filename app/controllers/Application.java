@@ -3,8 +3,15 @@ package controllers;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
+import links.LinkContentExtractor;
+import links.Links;
+import links.LinksRetriever;
+
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.cookie.DateUtils;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -28,7 +35,16 @@ public class Application extends Controller
 	public static Result test (String cookie) throws JsonParseException,
 			JsonMappingException, IOException
 	{
-		return ok (FacebookUtils.getAccessToken (cookie));
+		String accessToken = FacebookUtils.getAccessToken (cookie);
+		LinksRetriever foo = new LinksRetriever ();
+		List<Links> linksList = foo.getLinks (new DefaultHttpClient (),
+				"https://graph.facebook.com/me/links?access_token="
+						+ accessToken, 25);
+		LinkContentExtractor extractor = new LinkContentExtractor ();
+		Map<String, String> stuff = extractor.extractArticles (new DefaultHttpClient (), linksList);
+		for(String key: stuff.keySet ())
+			System.out.println (key + "\n"+stuff.get (key));
+		return ok (accessToken);
 	}
 
 	/**

@@ -14,6 +14,7 @@ object ApplicationBuild extends Build {
     javaEbean,
     "gov.sandia.foundry" % "cognitive-foundry" % "3.3.2",
     "de.l3s.boilerpipe" % "boilerpipe" % "1.2.0",
+    "net.sourceforge.nekohtml" % "nekohtml" % "1.9.18",
     "org.bluestemsoftware.open.maven.tparty" % "xerces-impl" % "2.9.0",
     "org.webjars" % "webjars-play" % "2.1.0",
     "org.webjars" % "bootstrap" % "2.3.0",
