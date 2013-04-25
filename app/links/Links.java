@@ -3,6 +3,7 @@ package links;
 import java.util.List;
 import java.util.Map;
 
+
 public class Links
 {
 	private List<Link> data;

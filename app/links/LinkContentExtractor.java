@@ -22,7 +22,8 @@ public class LinkContentExtractor
 	public Map<String, String> extractArticles (HttpClient client,
 			List<Links> linksList)
 	{
-		ImmutableMap.Builder<String, String> articleMap = ImmutableMap.builder ();
+		ImmutableMap.Builder<String, String> articleMap = ImmutableMap
+				.builder ();
 
 		int i = 0;
 		for (Links links : linksList)
